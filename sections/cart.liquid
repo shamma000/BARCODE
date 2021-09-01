@@ -1,0 +1,110 @@
+<!-- {% if cart.item_count > 0 %}
+    <div class="container"> 
+      <h1>cart</h1>
+  <form action="/cart" method="post" novalidate>
+        <table class="table">
+           <thead>
+             <th colspan="2" class="text-center">Product</th>
+             <th>Price</th>
+             <th>Qty</th>
+             <th>total</th>
+           </thead>
+           <tbody>
+             {% for item in cart.items %}
+               <tr>
+                 <td>
+                   <a href="">
+                     <img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}">
+                   </a>
+                 </td>
+                 <td>
+                   <a href="{{ item.url }}">{{ item.product.title }}</a>
+                   {{ item.variant.title }}
+                   <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="btn btn-danger">remove</a>
+                 </td>
+                 <td>{{ item.price | money }}</td>
+                 <td>
+                   <input type="number" class="quantity" name="updates[]" id="updates_{{ item.key }}" value="{{ item.quantity }}" min="0">
+                 </td>
+                 <td>
+                   {% if item.original_line_price != item.line_price %}{{ item.original_line_price | money }}{% endif %}
+                   {{ item.line_price | money }}
+                   {% for discount in item.discounts %}{{ discount.title }}{% endfor %}
+                 </td>
+               </tr>
+             {% endfor %}
+           </tbody>
+         </table>
+     
+         <div>
+           <p>sub total : {{ cart.total_price | money }}</p>
+           <button type="submit" name="update">Update</button>
+           <button type="submit" name="checkout">Checkout</button>
+         </div>
+     </form>
+{% else %}
+  <h2>cart</h2>
+  Cart is empty
+{% endif %} -->
+<div class="container">
+    {% if cart.item_count > 0 %}
+        <form action="/cart" method="post" novalidate>
+          <div class="table-responsive">
+            <table class="table align-middle mt-3">
+              <thead>
+                <tr>
+                  <th scope="col"></th>
+                  <th scope="col">Product</th>
+                  <th scope="col">Price</th>
+                  <th scope="col">Quantity</th>
+                  <th scope="col">Total</th>
+                  <th scope="col"></th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                {% for item in cart.items %}
+                {% assign cart_index= forloop.index | minus: 1 %}
+                {% if item.variant.inventory_quantity == 0 %}
+                  {% if item.variant.inventory_policy == "deny"%}
+                    <span class="to_remove" id="remove" data-remove="{{ item.key }}"></span>
+                  {% endif %}
+                {% else %}
+                  <tr>
+                    <td><img src="{{ item | img_url: 'medium' }}" alt="{{ item.title | escape }}" class="m-0"></td>
+                    <td>
+                      {{ item.product.title }}<br>
+                      {{ item.variant.title }}
+                    </td>
+                    <td>
+                      <p class="product_price">{{ item.price | money }}</p>
+                    </td>
+                    <td>
+                        <input type="number" class="quantity" data-cart-index="{{cart_index}}" data-price="{{ item.price | money_without_currency }}" data-key="{{ item.key }}" name="updates[]" id="updates_{{ item.key }}" placeholder="{{ item.quantity }}" min="1" max="{{item.variant.inventory_quantity}}">
+                      </td>
+                    <td>
+                      <p class="total_product_price" id="price{{cart_index}}">{{ item.line_price | money }}</p>
+                    </td>
+                    <td>
+                      <a href="/cart/change?line={{ forloop.index }}&amp;quantity=0" class="btn btn-danger">remove</a>
+                    </td>
+                  </tr>
+                  {% endif %}
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <h4>Total : <span id="cart_total">{{ cart.total_price | money }}</span></h4>
+          <button type="submit" class="btn btn-success" name="checkout">Checkout</button>
+      </form>
+    {% else %}
+    <div class="row align-items-center cart-empty">
+      <div class="col-12">
+          <center>
+            <h4>CART IS EMPTY</h4>
+          </center>
+      </div>
+    </div>
+  {% endif %}
+</div>
+

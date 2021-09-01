@@ -1,0 +1,67 @@
+<div class="container d-none d-md-block">
+    <div class="row pt-5 pb-5">
+        <div class="col text-center">
+            {{ 'Logo_Bevnet.png' | asset_url | img_tag: 'Logo' ,'w-50'}}
+        </div>
+        <div class="col text-center">
+            {{ 'Logo_MensHealth.png' | asset_url | img_tag: 'Logo' ,'w-50'}}
+        </div>
+        <div class="col text-center">
+            {{ 'Logo_Byrdie.png' | asset_url | img_tag: 'Logo' ,'w-50'}}
+        </div>
+        <div class="col text-center">
+            {{ 'Logo_Forbes.png' | asset_url | img_tag: 'Logo' ,'w-50'}}
+        </div>
+        <div class="col text-center">
+            {{ 'Logo_theHustle.png' | asset_url | img_tag: 'Logo' ,'w-50'}}
+        </div>
+    </div>
+</div>
+
+  <!--FOR CAROUSEL-->
+
+  <div id="carouselExampleIndicators" class="carousel slide d-sm-block d-md-none pt-5 pb-5" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="row">
+            <div class="carousel-item active">
+                <center>
+                    {{ 'Logo_Bevnet.png' | asset_url | img_tag: 'Logo' ,'w-50'}}
+                </center>
+            </div>
+            <div class="carousel-item">
+                <center>
+                    {{ 'Logo_MensHealth.png' | asset_url | img_tag: 'Logo' ,'w-50 d-block'}}
+                </center>
+            </div>
+            <div class="carousel-item">
+                <center>
+                    {{ 'Logo_Byrdie.png' | asset_url | img_tag: 'Logo' ,'w-50 d-block'}}
+                </center>
+            </div>
+            <div class="carousel-item">
+                <center>
+                    {{ 'Logo_Forbes.png' | asset_url | img_tag: 'Logo' ,'w-50 d-block'}}
+                </center>
+            </div>
+            <div class="carousel-item">
+                <center>
+                    {{ 'Logo_theHustle.png' | asset_url | img_tag: 'Logo' ,'w-50 d-block'}}
+                </center>
+            </div>
+        </div>
+    </div>
+        <div class="row mt-4">
+            <div class="col-6">
+                <center>    
+                    <img src="{{ 'prev.svg' | asset_url}}" class="carousel-icon-btn" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev" >
+                </center>    
+            </div>
+            <div class="col-6">
+                <center>    
+                    <img src="{{ 'next.svg' | asset_url}}" class="carousel-icon-btn" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+                </center>    
+            </div>
+        </div>
+</div>
+
+<!--FOR CAROUSEL-->
